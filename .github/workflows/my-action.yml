@@ -3,8 +3,6 @@ name: My tomato workflow!
 on: [push]
 
 Jobs:
-
-  # jobs to print something out.
   say-hello:
     runs-on: ubuntu-latest
     steps:
