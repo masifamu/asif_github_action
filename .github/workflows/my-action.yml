@@ -2,8 +2,9 @@ name: My tomato workflow!
 
 on: [push]
 
-Jobs:
+jobs:
   say-hello:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Tomato is not read it's light red"
+      - run: echo "Tomato is not red, it's light red"
+
