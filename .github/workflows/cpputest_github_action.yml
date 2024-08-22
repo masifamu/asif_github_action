@@ -7,7 +7,6 @@ on:
     tags:
       - "v*.*.*"  # Trigger release on tag push
 
-
 env:
   APP_NAME: my_executable
 
@@ -18,7 +17,7 @@ jobs:
   docker-unit-tests:
     runs-on: ubuntu-latest
     name: Build and run unit tests with docker image
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')
+    if: github.event_name == 'push'  # Runs for both branches and tags
     steps:
       - name: Check out this repo
         uses: actions/checkout@v3
@@ -44,15 +43,15 @@ jobs:
       - name: Run image
         run: docker run --name release-container release-image
 
-      - name: copy the elf file from the docker to the github dir
+      - name: Copy the ELF file from the Docker to the GitHub dir
         run: docker cp release-container:/project/${APP_NAME}.elf ./${APP_NAME}.elf
 
-      - name: put app name into env of gihub env
+      - name: Put app name into env of GitHub env
         run: echo "app_name=$APP_NAME" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
-          #if: startsWith(github.ref, 'refs/tags/')
         with:
           files: ${{ env.app_name }}.elf
           body_path: CHANGELOG.md
+
