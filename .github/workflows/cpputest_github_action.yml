@@ -3,9 +3,9 @@ name: Run CppUTest and Release
 on:
   push:
     branches:
-      - '**'  # Trigger tests on any branch push
+      - "**"  # Trigger tests on any branch push
     tags:
-      - 'v*.*.*'  # Trigger release on tag push
+      - "v*.*.*"  # Trigger release on tag push
 
 
 env:
@@ -33,7 +33,6 @@ jobs:
     needs: docker-unit-tests
     runs-on: ubuntu-latest
     name: Create a release if CppUTests passed
-    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Check out this repo
         uses: actions/checkout@v3
@@ -52,6 +51,7 @@ jobs:
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: ${{ env.app_name }}.elf
           body_path: CHANGELOG.md
