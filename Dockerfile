@@ -16,5 +16,9 @@ RUN mkdir /project/tools/ && cd /project/ && wget https://github.com/cpputest/cp
 	./configure && \
 	make
 
+# Run the build process explicitly to ensure it works
+RUN make -C /project
+
+
 ENTRYPOINT ["make", "test", "-C", "/project/"]
 
