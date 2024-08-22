@@ -44,7 +44,7 @@ jobs:
         run: docker run --name release-container release-image
 
       - name: copy the elf file from the docker to the github dir
-        run: docker cp release-container:/{APP_NAME}.elf ./{APP_NAME}.elf
+        run: docker cp release-container:/${APP_NAME}.elf ./${APP_NAME}.elf
 
       - name: put app name into env of gihub env
         run: echo "app_name=$APP_NAME" >> $GITHUB_ENV
