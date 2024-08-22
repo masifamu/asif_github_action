@@ -9,7 +9,7 @@ jobs:
     name: Build and run unit tests with docker image
     steps:
       -name: check out this repo
-       uese: actions/checkout@v3
+       uses: actions/checkout@v3
 
       -name: Build docker image
        run: docker build -t unit-tests-image -f Dockerfile .
